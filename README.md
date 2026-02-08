@@ -100,5 +100,5 @@ python scripts/benchmark_biological.py baseline \
 python score.py --input_file results_bio_ablation/Qwen25VL7B/QWEN_RAG_FULL.jsonl
 ```
 
-结果写入 `results/` 目录。若部分样本需 GPT 抽取答案，请先设置 `OPENAI_API_KEY`。
+结果写入 `results/` 目录。
 
