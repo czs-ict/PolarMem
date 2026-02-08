@@ -5,50 +5,17 @@
 ```
 PolarMem/
 ├── src/
-│   ├── backbone/          # 视觉骨干（Qwen2.5-VL 封装）
-│   ├── database/          # Neo4j、Milvus 客户端
-│   ├── logic/             # 概念提取、Otsu 阈值、切片等
-│   └── pipeline/          # 检索器、生成器
+│   ├── backbone/         
+│   ├── database/        
+│   ├── logic/            
+│   └── pipeline/          
 ├── scripts/
-│   └── benchmark_biological.py   # Biological 场景离线建库 + 在线/基线评测
-├── utils/                  # 数据加载、答案抽取（含 GPT 抽取）
-├── download_qwen_vl.py     # 下载 Qwen2.5-VL 模型（ModelScope）
-├── score.py                # 对模型输出进行打分（准确率等）
+│   └── benchmark_biological.py  
+├── utils/                  
+├── download_qwen_vl.py     
+├── score.py                
 └── README.md
 ```
-
-## 环境与依赖
-
-- Python 3.9+
-- PyTorch、CUDA（GPU 推理）
-- 主要依赖：`transformers`、`qwen-vl-utils`、`neo4j`、`pymilvus`、`PIL`、`pyarrow`、`tqdm`、`scikit-image`
-- 可选（答案抽取）：`openai`（需配置 `OPENAI_API_KEY`）
-
-建议使用 conda/venv 创建虚拟环境后安装：
-
-```bash
-pip install torch torchvision
-pip install transformers qwen-vl-utils
-pip install neo4j pymilvus
-pip install Pillow pyarrow tqdm scikit-image
-# 若使用 score.py 的 GPT 抽取
-pip install openai
-```
-
-## 环境变量（开源友好配置）
-
-以下配置均通过环境变量或命令行参数指定，**请勿在代码中写入真实密钥或本机路径**。
-
-| 变量名 | 说明 | 默认/示例 |
-|--------|------|-----------|
-| `QWEN_MODEL_PATH` | Qwen2.5-VL 模型路径或 HuggingFace 模型 ID | `Qwen/Qwen2.5-VL-7B-Instruct` |
-| `MRAG_DATA_DIR` | MRAG-Bench 测试集 parquet 所在目录 | `data/mrag_bench_raw/data` |
-| `MRAG_IMAGE_CORPUS` | MRAG 图像库目录（按 image_id 存图） | `data/mrag_bench_image_corpus` |
-| `IMAGE_ROOT` | 在线推理时检索到的图像所在根目录 | `.` |
-| `OPENAI_API_KEY` | OpenAI API Key（仅 score.py 中 GPT 抽取需要） | 无默认，需自行设置 |
-| `OPENAI_ORG` | OpenAI 组织 ID（可选） | 无默认 |
-
-Neo4j / Milvus 的连接与认证通过脚本参数传入（如 `--neo4j_uri`、`--milvus_host`），生产环境建议从环境变量读取后再传参。
 
 ## 数据准备
 
